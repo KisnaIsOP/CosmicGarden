@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome to Cosmic Garden{% endblock %}
+
+{% block content %}
+<div class="hero-section text-center py-5">
+    <h1 class="display-4 cosmic-title">Welcome to Cosmic Garden</h1>
+    <p class="lead cosmic-text">Grow extraordinary plants across the solar system!</p>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="garden-section">
+            <h2 class="cosmic-title">Your Gardens</h2>
+            <div class="garden-grid">
+                {% for garden in gardens %}
+                <div class="garden-card">
+                    <div class="garden-info">
+                        <h3>{{ garden.name }}</h3>
+                        <div class="planet-info">
+                            <span class="badge bg-primary">{{ garden.planet.name }}</span>
+                            <span class="badge bg-info">{{ garden.planet.climate }}</span>
+                            <span class="badge bg-warning">{{ garden.planet.gravity }}G</span>
+                        </div>
+                        <p class="mt-2">{{ garden.planet.description }}</p>
+                        <div class="garden-stats">
+                            <span class="stat">Plants: {{ garden.plants|length }}</span>
+                            <span class="stat">Atmosphere: {{ garden.planet.atmosphere }}</span>
+                            <span class="stat">Temperature: {{ garden.planet.temperature }}°C</span>
+                        </div>
+                    </div>
+                    <div class="garden-actions">
+                        <a href="{{ url_for('view_garden', garden_id=garden.id) }}" class="btn btn-primary">Visit Garden</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="create-garden-section">
+            <h2 class="cosmic-title">Create New Garden</h2>
+            <div class="garden-card new-garden">
+                <form action="{{ url_for('create_garden') }}" method="POST">
+                    <div class="mb-3">
+                        <label for="garden-name" class="form-label">Garden Name</label>
+                        <input type="text" class="form-control" id="garden-name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="planet-select" class="form-label">Select Planet</label>
+                        <select class="form-control" id="planet-select" name="planet_id" required>
+                            <option value="">Choose a Planet</option>
+                            {% for planet in planets %}
+                            <option value="{{ planet.id }}">
+                                {{ planet.name }} (Difficulty: {{ planet.difficulty }}/5)
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Create Garden</button>
+                </form>
+            </div>
+
+            <div class="planet-guide mt-4">
+                <h3 class="cosmic-title">Planet Guide</h3>
+                {% for planet in planets %}
+                <div class="planet-card">
+                    <h4>{{ planet.name }}</h4>
+                    <p>{{ planet.description }}</p>
+                    <div class="planet-stats">
+                        <span class="badge bg-info">{{ planet.climate }}</span>
+                        <span class="badge bg-warning">{{ planet.gravity }}G</span>
+                        <span class="badge bg-danger">{{ planet.temperature }}°C</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

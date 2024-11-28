@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="game-container">
+    <!-- Planet Environment Visualization -->
+    <div class="environment-layer">
+        <div class="planet-surface" data-planet="{{ planet.name.lower() }}">
+            <div class="atmosphere-effect"></div>
+            <div class="weather-effects"></div>
+        </div>
+    </div>
+
+    <!-- Garden Grid -->
+    <div class="garden-grid">
+        {% for plant in plants %}
+        <div class="plot-cell {% if plant %}occupied{% endif %}" data-health="{{ plant.health }}" data-stage="{{ plant.growth_stage }}">
+            {% if plant %}
+            <div class="plant-container">
+                <!-- Plant Visualization -->
+                <div class="plant-visual stage-{{ plant.growth_stage }}" style="--mutation-level: {{ plant.mutation_level }}">
+                    <div class="plant-stem">
+                        {% for i in range(plant.growth_stage + 1) %}
+                        <div class="stem-segment"></div>
+                        {% endfor %}
+                    </div>
+                    <div class="plant-leaves">
+                        {% for i in range(plant.growth_stage * 2) %}
+                        <div class="leaf"></div>
+                        {% endfor %}
+                    </div>
+                    {% if plant.growth_stage >= 4 %}
+                    <div class="plant-flower">
+                        <div class="flower-center"></div>
+                        {% for i in range(8) %}
+                        <div class="petal"></div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Plant Info Overlay -->
+                <div class="plant-overlay">
+                    <div class="plant-name">{{ plant.species.name }}</div>
+                    <div class="health-bar">
+                        <div class="health-fill" style="width: {{ plant.health }}%"></div>
+                    </div>
+                    <div class="plant-stats">
+                        <div class="stat oxygen">O₂: {{ "%.1f"|format(plant.oxygen_production) }}/hr</div>
+                        {% if plant.mutation_level > 0 %}
+                        <div class="mutation-indicator">
+                            {% for i in range(plant.mutation_level) %}
+                            <span class="mutation-star">★</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="plant-actions">
+                        <form action="{{ url_for('water_plant', plant_id=plant.id) }}" method="post" class="action-form">
+                            <button type="submit" class="action-btn water-btn" {% if (now - plant.last_watered).total_seconds() < 3600 %}disabled{% endif %}>
+                                <div class="btn-icon">💧</div>
+                            </button>
+                        </form>
+                        {% if plant.growth_stage >= 4 %}
+                        <form action="{{ url_for('harvest_plant', plant_id=plant.id) }}" method="post" class="action-form">
+                            <button type="submit" class="action-btn harvest-btn">
+                                <div class="btn-icon">🌾</div>
+                            </button>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <!-- Empty Plot -->
+            <div class="empty-plot">
+                <div class="plot-soil"></div>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Game HUD -->
+    <div class="game-hud">
+        <!-- Planet Info -->
+        <div class="planet-info">
+            <h2>{{ planet.name }}</h2>
+            <div class="environment-stats">
+                <div class="stat-bar gravity" title="Gravity">
+                    <span class="icon">⚖️</span>
+                    <div class="bar-fill" style="width: {{ planet.gravity * 100 }}%"></div>
+                </div>
+                <div class="stat-bar temperature" title="Temperature">
+                    <span class="icon">🌡️</span>
+                    <div class="bar-fill" style="width: {{ (planet.temperature + 20) / 40 * 100 }}%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Plant Selection -->
+        <div class="plant-selection">
+            <h3>Available Plants</h3>
+            <form action="{{ url_for('add_plant', garden_id=garden.id) }}" method="post" class="plant-picker">
+                {% for species in plant_species %}
+                <div class="plant-option">
+                    <input type="radio" name="species_id" value="{{ species.id }}" id="species-{{ species.id }}">
+                    <label for="species-{{ species.id }}" class="plant-label">
+                        <div class="species-preview">
+                            <div class="preview-visual stage-4"></div>
+                        </div>
+                        <div class="species-info">
+                            <div class="species-name">{{ species.name }}</div>
+                            <div class="species-stats">
+                                <span class="rarity {{ species.rarity.lower() }}">{{ species.rarity }}</span>
+                                <span class="growth-time">{{ species.growth_time }}h</span>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+                {% endfor %}
+                <button type="submit" class="plant-btn">Plant Selected Species</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Events Display -->
+    {% if random_events %}
+    <div class="events-display">
+        {% for event in random_events %}
+        <div class="event-notification" data-event="{{ event.name|lower|replace(' ', '-') }}">
+            <div class="event-icon"></div>
+            <div class="event-info">
+                <h4>{{ event.name }}</h4>
+                <p>{{ event.description }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add visual effects based on planet
+    const planetSurface = document.querySelector('.planet-surface');
+    const planetName = planetSurface.dataset.planet;
+    
+    // Add weather effects
+    if (planetName === 'mars') {
+        setInterval(() => {
+            const dust = document.createElement('div');
+            dust.className = 'dust-particle';
+            dust.style.left = Math.random() * 100 + '%';
+            planetSurface.appendChild(dust);
+            setTimeout(() => dust.remove(), 3000);
+        }, 200);
+    }
+    
+    // Plant growth animation
+    document.querySelectorAll('.plant-visual').forEach(plant => {
+        plant.classList.add('growing');
+    });
+    
+    // Health bar updates
+    document.querySelectorAll('.health-fill').forEach(bar => {
+        const health = parseInt(bar.style.width);
+        if (health < 30) bar.classList.add('critical');
+        else if (health < 70) bar.classList.add('warning');
+    });
+});
+</script>
+{% endblock %}

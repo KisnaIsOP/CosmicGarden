@@ -1,0 +1,920 @@
+/* Space Theme */
+:root {
+    --space-primary: #6a3de8;
+    --space-secondary: #2c1654;
+    --space-accent: #ff61ab;
+    --space-text: #e0e0ff;
+    --space-dark: #1a1a2e;
+    --mars-color: #e67e22;
+    --venus-color: #f1c40f;
+    --europa-color: #3498db;
+    --space-black: #0a0a0a;
+    --space-blue: #1a1a2e;
+    --cosmic-purple: #4a1a5b;
+    --star-yellow: #ffd700;
+    --plant-green: #00ff9d;
+    --danger-red: #ff4444;
+    --warning-orange: #ffa500;
+    --healthy-green: #00ff00;
+}
+
+/* Background */
+.space-background {
+    background: linear-gradient(45deg, var(--space-dark), var(--space-secondary));
+    color: var(--space-text);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.space-background::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
+        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
+        radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
+    background-size: 550px 550px, 350px 350px, 250px 250px;
+    background-position: 0 0, 40px 60px, 130px 270px;
+    z-index: 1;
+    animation: twinkle 8s infinite linear;
+    pointer-events: none;
+}
+
+@keyframes twinkle {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+/* Navigation */
+.cosmic-nav {
+    background: rgba(26, 26, 46, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cosmic-icon {
+    color: var(--space-accent);
+}
+
+/* Cards */
+.feature-card, .planet-card, .garden-card, .plant-card, .species-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.feature-card:hover, .planet-card:hover, .garden-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: var(--space-accent);
+    margin-bottom: 1rem;
+}
+
+/* Planet Cards */
+.planet-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.planet-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    border-radius: 15px 15px 0 0;
+    opacity: 0.3;
+}
+
+.planet-card h3 {
+    position: relative;
+    z-index: 2;
+}
+
+/* Garden Cards */
+.garden-card {
+    background: var(--space-blue);
+    border-radius: 10px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.garden-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 255, 157, 0.2);
+}
+
+.garden-info h3 {
+    color: var(--star-yellow);
+    margin-bottom: 1rem;
+}
+
+.planet-info {
+    margin-bottom: 1rem;
+}
+
+.garden-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 1rem 0;
+}
+
+.stat {
+    font-size: 0.9em;
+    color: #ccc;
+}
+
+.garden-actions {
+    margin-top: 1rem;
+}
+
+.garden-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 2rem;
+}
+
+/* Plant Cards */
+.plant-card {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    background: var(--space-blue);
+    border-radius: 10px;
+    padding: 15px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.plant-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 255, 157, 0.2);
+}
+
+.plant-card h3 {
+    color: var(--space-accent);
+    margin-bottom: 1rem;
+}
+
+.health-bar {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+/* Species Cards */
+.species-card {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.species-requirements {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Typography */
+.cosmic-title {
+    color: var(--space-text);
+    text-shadow: 0 0 10px rgba(224, 224, 255, 0.5);
+    margin-bottom: 1rem;
+}
+
+.cosmic-subtitle {
+    color: var(--space-accent);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.cosmic-text {
+    color: var(--space-text);
+    opacity: 0.9;
+}
+
+/* Buttons */
+.cosmic-btn, .btn-primary, .btn-success {
+    background: var(--space-primary);
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-success {
+    background: #2ecc71;
+}
+
+.cosmic-btn:hover, .btn-primary:hover, .btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 97, 171, 0.4);
+}
+
+.btn-sm {
+    padding: 0.4rem 1rem;
+    font-size: 0.875rem;
+}
+
+/* Forms */
+.form-control {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--space-text);
+    border-radius: 10px;
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--space-accent);
+    color: var(--space-text);
+    box-shadow: 0 0 0 0.25rem rgba(255, 97, 171, 0.25);
+}
+
+/* Alerts */
+.alert {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--space-text);
+}
+
+/* Footer */
+.footer {
+    background: rgba(26, 26, 46, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--space-text);
+}
+
+/* Garden Layout */
+.garden-header {
+    background: var(--space-blue);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.planet-stats {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Planet Guide */
+.planet-guide {
+    background: var(--space-blue);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.planet-card {
+    background: rgba(26, 26, 46, 0.8);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left: 4px solid var(--star-yellow);
+}
+
+.planet-card h4 {
+    color: var(--star-yellow);
+    margin-bottom: 0.5rem;
+}
+
+.planet-stats {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Plant Visual */
+.plant-visual {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.growth-stage {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.ascii-art {
+    font-family: monospace;
+    white-space: pre;
+    color: var(--plant-green);
+    text-shadow: 0 0 5px var(--plant-green);
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0% { text-shadow: 0 0 5px var(--plant-green); }
+    50% { text-shadow: 0 0 20px var(--plant-green); }
+    100% { text-shadow: 0 0 5px var(--plant-green); }
+}
+
+.plant-info {
+    background: rgba(26, 26, 46, 0.8);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.plant-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.stat {
+    font-size: 0.9em;
+    color: #ccc;
+}
+
+.mutation-level {
+    color: var(--star-yellow);
+    text-shadow: 0 0 5px var(--star-yellow);
+}
+
+.production-stats {
+    margin: 10px 0;
+    padding: 10px;
+    background: rgba(0, 255, 157, 0.1);
+    border-radius: 5px;
+}
+
+/* Plant Health States */
+.plant-healthy .ascii-art { color: var(--healthy-green); }
+.plant-warning .ascii-art { color: var(--warning-orange); }
+.plant-danger .ascii-art { color: var(--danger-red); }
+
+/* Buttons and Forms */
+.btn {
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    letter-spacing: 1px;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: #4a90e2;
+    color: white;
+}
+
+.btn-success {
+    background: var(--plant-green);
+    color: var(--space-black);
+}
+
+/* Events Panel */
+.events-panel {
+    background: var(--cosmic-purple);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.event-card {
+    background: rgba(26, 26, 46, 0.8);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 10px 0;
+    border-left: 4px solid var(--star-yellow);
+}
+
+/* Animations */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.plant-card {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .garden-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .plant-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Game Container */
+.game-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #0a0a0a;
+}
+
+/* Planet Environment */
+.environment-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.planet-surface {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-size: 200px 200px;
+    transition: all 0.5s ease;
+}
+
+/* Planet-specific surfaces */
+.planet-surface[data-planet="mars"] {
+    background: linear-gradient(to bottom, #421c16, #8b3e2f);
+    background-image: 
+        radial-gradient(circle at 50% 50%, #8b3e2f 10%, transparent 10%),
+        radial-gradient(circle at 20% 80%, #672e23 15%, transparent 15%);
+}
+
+.planet-surface[data-planet="venus"] {
+    background: linear-gradient(to bottom, #a65d57, #d4a5a5);
+    background-image: 
+        linear-gradient(45deg, #bf7b76 25%, transparent 25%),
+        linear-gradient(-45deg, #bf7b76 25%, transparent 25%);
+}
+
+.planet-surface[data-planet="europa"] {
+    background: linear-gradient(to bottom, #2c4356, #7b97b0);
+    background-image: 
+        linear-gradient(90deg, #3d5c7a 2px, transparent 2px),
+        linear-gradient(0deg, #3d5c7a 2px, transparent 2px);
+    background-size: 50px 50px;
+}
+
+/* Weather Effects */
+.dust-particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(139, 62, 47, 0.6);
+    pointer-events: none;
+    animation: dust-storm 3s linear infinite;
+}
+
+@keyframes dust-storm {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-100vh) translateX(-200px);
+        opacity: 0;
+    }
+}
+
+/* Garden Grid */
+.garden-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+    margin-top: 60px;
+}
+
+.plot-cell {
+    aspect-ratio: 1;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.plot-cell:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Plant Visualization */
+.plant-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.plant-visual {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    transform-origin: bottom center;
+    transition: all 0.5s ease;
+}
+
+.plant-stem {
+    width: 4px;
+    background: #4CAF50;
+    position: relative;
+    margin: 0 auto;
+}
+
+.stem-segment {
+    height: 20px;
+    width: 100%;
+    background: linear-gradient(to right, #388E3C, #4CAF50, #388E3C);
+    animation: grow-segment 1s ease-out;
+}
+
+.plant-leaves {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+
+.leaf {
+    position: absolute;
+    width: 20px;
+    height: 10px;
+    background: #66BB6A;
+    border-radius: 10px 0;
+    transform-origin: 0 50%;
+    animation: leaf-grow 1.5s ease-out;
+}
+
+.leaf:nth-child(odd) {
+    left: 100%;
+    transform: rotate(-45deg);
+}
+
+.leaf:nth-child(even) {
+    right: 100%;
+    transform: rotate(45deg);
+    border-radius: 0 10px;
+}
+
+.plant-flower {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: flower-bloom 2s ease-out;
+}
+
+.flower-center {
+    width: 20px;
+    height: 20px;
+    background: #FDD835;
+    border-radius: 50%;
+    position: relative;
+}
+
+.petal {
+    position: absolute;
+    width: 15px;
+    height: 25px;
+    background: #FFEB3B;
+    border-radius: 15px;
+    transform-origin: bottom center;
+}
+
+/* Plant Animations */
+@keyframes grow-segment {
+    from {
+        height: 0;
+        opacity: 0;
+    }
+    to {
+        height: 20px;
+        opacity: 1;
+    }
+}
+
+@keyframes leaf-grow {
+    from {
+        transform: scale(0) rotate(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1) rotate(var(--rotation));
+        opacity: 1;
+    }
+}
+
+@keyframes flower-bloom {
+    0% {
+        transform: translateX(-50%) scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: translateX(-50%) scale(1.2);
+    }
+    100% {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Plant Info Overlay */
+.plant-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.plot-cell:hover .plant-overlay {
+    transform: translateY(0);
+}
+
+.plant-name {
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.health-bar {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.health-fill {
+    height: 100%;
+    background: #4CAF50;
+    transition: width 0.3s ease;
+}
+
+.health-fill.warning {
+    background: #FFC107;
+}
+
+.health-fill.critical {
+    background: #F44336;
+}
+
+/* Game HUD */
+.game-hud {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+}
+
+.planet-info {
+    color: #fff;
+}
+
+.environment-stats {
+    display: flex;
+    gap: 20px;
+}
+
+.stat-bar {
+    width: 150px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.bar-fill {
+    height: 100%;
+    background: #4CAF50;
+    transition: width 0.3s ease;
+}
+
+.gravity .bar-fill {
+    background: #2196F3;
+}
+
+.temperature .bar-fill {
+    background: #FF5722;
+}
+
+/* Plant Selection */
+.plant-selection {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    position: fixed;
+    right: 20px;
+    top: 80px;
+    width: 300px;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 2;
+}
+
+.plant-option {
+    margin-bottom: 10px;
+}
+
+.plant-label {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.plant-label:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.species-preview {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.preview-visual {
+    transform: scale(0.5);
+}
+
+.species-info {
+    flex: 1;
+}
+
+.species-name {
+    color: #fff;
+    font-weight: bold;
+}
+
+.species-stats {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.rarity {
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.8em;
+}
+
+.rarity.common {
+    background: #78909C;
+}
+
+.rarity.rare {
+    background: #5C6BC0;
+}
+
+.rarity.legendary {
+    background: #FFA000;
+}
+
+/* Event Notifications */
+.events-display {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 3;
+}
+
+.event-notification {
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    animation: slide-in 0.5s ease-out;
+}
+
+@keyframes slide-in {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Action Buttons */
+.action-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.action-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-icon {
+    font-size: 1.2em;
+    line-height: 1;
+}
+
+.water-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(33, 150, 243, 0.3);
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.water-btn:hover::before {
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .garden-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .plant-selection {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        top: auto;
+        width: 100%;
+        max-height: 50vh;
+    }
+}
